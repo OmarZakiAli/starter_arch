@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_form_bloc/flutter_form_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:starter_arch/common_widgets/custom_button.dart';
 import 'package:starter_arch/core/common/routes.dart';
 import 'package:starter_arch/features/auth/blocs/login_form.bloc.dart';
 import 'package:starter_arch/theme/input_decoration.dart';
-import 'package:vrouter/vrouter.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
         formBloc: formBloc,
         onSuccess: (c, s) {
           toast(s.successResponse.toString());
-          context.vRouter.toNamed(Routes.home);
+          context.replaceNamed(Routes.home);
         },
         onFailure: (c, f) {
           toast(f.failureResponse.toString());
