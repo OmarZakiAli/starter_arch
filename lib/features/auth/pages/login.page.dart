@@ -6,6 +6,7 @@ import 'package:overlay_support/overlay_support.dart';
 import 'package:starter_arch/common_widgets/custom_button.dart';
 import 'package:starter_arch/core/common/routes.dart';
 import 'package:starter_arch/core/utils/local_storage_utils.dart';
+import 'package:starter_arch/core/utils/notification_utils.dart';
 import 'package:starter_arch/features/auth/blocs/login_form.bloc.dart';
 import 'package:starter_arch/theme/input_decoration.dart';
 
@@ -28,15 +29,13 @@ class _LoginPageState extends State<LoginPage> {
       body: FormBlocListener(
         formBloc: formBloc,
         onSuccess: (c, s) {
-          showSimpleNotification(Text(s.successResponse.toString()),
-              position: NotificationPosition.bottom);
+          NotificationUtils.showSuccessMessage(s.successResponse.toString());
 
           context.replaceNamed(Routes.home);
           LocalStorageUtils.setLogin(true);
         },
         onFailure: (c, f) {
-          showSimpleNotification(Text(f.failureResponse.toString()),
-              position: NotificationPosition.bottom);
+          NotificationUtils.showErrorMessage(f.failureResponse.toString());
         },
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
