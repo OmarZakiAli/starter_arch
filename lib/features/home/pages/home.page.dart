@@ -1,7 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:starter_arch/core/common/dependencies.dart';
+import 'package:starter_arch/core/common/routes.dart';
 import 'package:starter_arch/core/data/post.model.dart';
 import 'package:starter_arch/core/utils/local_storage_utils.dart';
 import 'package:starter_arch/features/home/blocs/home_bloc.dart';
@@ -30,13 +32,19 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Theme.of(context).appColors.background,
       appBar: AppBar(
         centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              LocalStorageUtils.setLogin(false);
+              GoRouter.of(context).replaceNamed(Routes.login);
+            },
+            icon: const Icon(Icons.logout)),
         actions: [
           IconButton(
               onPressed: () {
                 if (context.locale == const Locale("ar")) {
-                  context.setLocale(Locale("en"));
+                  context.setLocale(const Locale("en"));
                 } else {
-                  context.setLocale(Locale("ar"));
+                  context.setLocale(const Locale("ar"));
                 }
               },
               icon: const Icon(Icons.language)),

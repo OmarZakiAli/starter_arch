@@ -1,16 +1,31 @@
-import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
+
 import 'package:starter_arch/core/data/post.model.dart';
 
-class HomeState extends Equatable {
+class HomeState {
   final List<PostModel>? posts;
   final bool isLoading;
   const HomeState({this.posts, this.isLoading = false});
 
-  copyWith({List<PostModel>? posts, bool? isLoading}) {
+  HomeState copyWith({
+    List<PostModel>? posts,
+    bool? isLoading,
+  }) {
     return HomeState(
-        isLoading: isLoading ?? this.isLoading, posts: posts ?? this.posts);
+      posts: posts ?? this.posts,
+      isLoading: isLoading ?? this.isLoading,
+    );
   }
 
   @override
-  List<Object?> get props => [isLoading, posts];
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is HomeState &&
+        listEquals(other.posts, posts) &&
+        other.isLoading == isLoading;
+  }
+
+  @override
+  int get hashCode => posts.hashCode ^ isLoading.hashCode;
 }

@@ -12,20 +12,6 @@ class PostModel {
     this.body,
   });
 
-  PostModel copyWith({
-    int? id,
-    int? userId,
-    String? title,
-    String? body,
-  }) {
-    return PostModel(
-      id: id ?? this.id,
-      userId: userId ?? this.userId,
-      title: title ?? this.title,
-      body: body ?? this.body,
-    );
-  }
-
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -63,5 +49,19 @@ class PostModel {
   @override
   int get hashCode {
     return id.hashCode ^ userId.hashCode ^ title.hashCode ^ body.hashCode;
+  }
+
+  PostModel copyWith({
+    int? id,
+    int? userId,
+    String? title,
+    String? body,
+  }) {
+    return PostModel(
+      id: id ?? this.id,
+      userId: userId ?? this.userId,
+      title: title ?? this.title,
+      body: body ?? this.body,
+    );
   }
 }

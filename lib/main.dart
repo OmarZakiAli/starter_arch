@@ -25,40 +25,31 @@ void main() async {
   ));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
 
   @override
-  void initState() {
-    super.initState();
-    LocalStorageUtils.listenToTheme().addListener(() {
-      setState(() {});
-      didChangeDependencies();
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      theme: AppThemes.light,
-      darkTheme: AppThemes.dark,
-      themeMode:
-          LocalStorageUtils.isDarkMode() ? ThemeMode.dark : ThemeMode.light,
-      routeInformationProvider: Routes.router.routeInformationProvider,
-      routeInformationParser: Routes.router.routeInformationParser,
-      routerDelegate: Routes.router.routerDelegate,
-      title: "App Arch",
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      // child: VRouter(routes: Routes.vroutes),
-    );
+    return ValueListenableBuilder(
+        valueListenable: LocalStorageUtils.listenToTheme(),
+        builder: (context, _, _2) {
+          return MaterialApp.router(
+            theme: AppThemes.light,
+            darkTheme: AppThemes.dark,
+            themeMode: LocalStorageUtils.isDarkMode()
+                ? ThemeMode.dark
+                : ThemeMode.light,
+            routeInformationProvider: Routes.router.routeInformationProvider,
+            routeInformationParser: Routes.router.routeInformationParser,
+            routerDelegate: Routes.router.routerDelegate,
+            title: "App Arch",
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            // child: VRouter(routes: Routes.vroutes),
+          );
+        });
   }
 }

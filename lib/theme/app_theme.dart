@@ -10,12 +10,14 @@ extension AppThemingExtesion on ThemeData {
 
 class AppThemes {
   static ThemeData light = ThemeData(
-      brightness: Brightness.light,
-      primaryColor: AppColors().primary,
-      scaffoldBackgroundColor: AppColors().background);
+    brightness: Brightness.light,
+    primaryColor: AppColors().primary,
+    // scaffoldBackgroundColor: AppColors().background
+  );
 
   static ThemeData dark = ThemeData(
-      brightness: Brightness.dark,
-      primaryColor: AppColors().primary,
-      scaffoldBackgroundColor: AppColors().background);
+    brightness: Brightness.dark,
+    primaryColor: AppColors().primary,
+    //scaffoldBackgroundColor: AppColors().background
+  );
 }
