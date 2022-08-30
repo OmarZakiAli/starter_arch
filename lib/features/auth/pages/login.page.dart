@@ -29,11 +29,14 @@ class _LoginPageState extends State<LoginPage> {
       body: FormBlocListener(
         formBloc: formBloc,
         onSuccess: (c, s) {
-          toast(s.successResponse.toString());
+          showSimpleNotification(Text(s.successResponse.toString()),
+              position: NotificationPosition.bottom);
+
           context.replaceNamed(Routes.home);
         },
         onFailure: (c, f) {
-          toast(f.failureResponse.toString());
+          showSimpleNotification(Text(f.failureResponse.toString()),
+              position: NotificationPosition.bottom);
         },
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),

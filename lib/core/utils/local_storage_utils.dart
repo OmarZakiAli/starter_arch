@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:hive_flutter/adapters.dart';
 
 class LocalStorageUtils {
@@ -6,6 +7,10 @@ class LocalStorageUtils {
   static init() async {
     await Hive.initFlutter();
     await Hive.openBox("appBox");
+  }
+
+  static ValueListenable listenToTheme() {
+    return _appBox.listenable(keys: ["is_dark_mode"]);
   }
 
   static bool isLogin() {

@@ -6,7 +6,7 @@ import 'package:starter_arch/core/data/post.model.dart';
 import 'package:starter_arch/core/utils/local_storage_utils.dart';
 import 'package:starter_arch/features/home/blocs/home_bloc.dart';
 import 'package:starter_arch/features/home/blocs/home_state.dart';
-import 'package:starter_arch/theme/app_colors.dart';
+import 'package:starter_arch/theme/app_theme.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.appColors.background,
+      backgroundColor: Theme.of(context).appColors.background,
       appBar: AppBar(
         centerTitle: true,
         actions: [
@@ -42,12 +42,13 @@ class _HomePageState extends State<HomePage> {
               icon: const Icon(Icons.language)),
           IconButton(
               onPressed: () {
-                if (!LocalStorageUtils.isDarkMode()) {
+                if (LocalStorageUtils.isDarkMode()) {
+                  LocalStorageUtils.setIsDarkMode(false);
                 } else {
-                  context.setLocale(Locale("ar"));
+                  LocalStorageUtils.setIsDarkMode(true);
                 }
               },
-              icon: const Icon(Icons.language))
+              icon: const Icon(Icons.dark_mode))
         ],
         title: Text("home".tr()),
       ),
@@ -64,8 +65,14 @@ class _HomePageState extends State<HomePage> {
                     PostModel? post = bloc.state.posts?[i];
 
                     return ListTile(
-                      title: Text(post?.title ?? ""),
-                      subtitle: Text(post?.body ?? ""),
+                      title: Text(
+                        post?.title ?? "",
+                        style: Theme.of(context).appTextStyles.title,
+                      ),
+                      subtitle: Text(
+                        post?.body ?? "",
+                        style: Theme.of(context).appTextStyles.subTitle,
+                      ),
                     );
                   });
         },

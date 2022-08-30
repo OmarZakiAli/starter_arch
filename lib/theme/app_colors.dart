@@ -7,7 +7,3 @@ class AppColors {
   Color get background =>
       LocalStorageUtils.isDarkMode() ? Colors.black : Colors.white;
 }
-
-extension AppThemingExtesion on BuildContext {
-  AppColors get appColors => AppColors();
-}

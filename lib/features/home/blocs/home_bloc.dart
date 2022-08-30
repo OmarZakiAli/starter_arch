@@ -7,15 +7,13 @@ class HomeBloc extends Cubit<HomeState> {
   HomeBloc() : super(const HomeState(isLoading: true, posts: []));
 
   initPosts() {
-    GetPostsAction action = GetPostsAction();
-    action.onError = (e) {
-      toast(e.toString());
-      emit(state.copyWith(isLoading: false));
-    };
-    action.onSuccess = (s) {
-      emit(state.copyWith(isLoading: false, posts: s?.posts));
-    };
-
-    action.onQueue();
+    GetPostsAction().run().then((value) {
+      value.fold((error) {
+        toast(error.message);
+        emit(state.copyWith(isLoading: false));
+      }, (data) {
+        emit(state.copyWith(isLoading: false, posts: data?.posts));
+      });
+    });
   }
 }
